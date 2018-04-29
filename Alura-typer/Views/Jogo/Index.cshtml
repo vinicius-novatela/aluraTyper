@@ -1,0 +1,102 @@
+﻿
+@*@model Alura.Models.Frases*@
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UFT-8">
+    <title>Alura Typer</title>
+    <link href="~/css/libs/materialize..min.css" rel="stylesheet" />
+    <link href="~/css/libs/google-fonts.css" rel="stylesheet" />  
+    <link href="../../Content/Site.css" rel="stylesheet" />
+    <link href="~/css/estilos.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="center"> Alura Typer</h1>
+        <div class="center-align">
+            <p class="frase">Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+        </div>
+        <div class="center">
+            <p id="erro">Ocorreu um erro, por favor tente novamente!</p>
+            <img alt="spinner" src="~/img/spinner.gif " id="spinner"  />
+        </div>
+
+        <ul class="informacoes center">
+            <li>
+                <i class="small material-icons icones">description</i>
+                <span id="tamanho-frase">0</span> palavras
+            </li>
+            <li>
+                <i class="small material-icons icones">query_builder</i>
+                <span id="tempo-digitacao">15</span> segundos
+            </li>
+        </ul>
+        <div class="center-align">
+            <textarea disabled class="campo-digitacao "rows="8" cols="40"></textarea> <!--para ter acesso ao texto = value-->
+        </div>
+
+        <div class="botoes center-align">
+            <a id="botao-reiniciar" class="btn-floating btn-large waves-effect waves-light red">
+                <i class="material-icons">restore</i>
+            </a>
+            <!-- NOVO BOTÃO AQUI -->
+            <a id="botao-placar" class="btn-floating btn-large waves-effect waves-light green">
+                <i class="material-icons">assignment</i>
+            </a>
+            <!-- outros botões -->
+            <a id="botao-frase" class="btn-floating btn-large waves-effect waves-light blue" onclick="fraseAleatoria()">
+                <i class="material-icons">shuffle</i>
+            </a>
+            @*<a id="botao-frase-id" class="btn-floating btn-large waves-effect waves-light cyan">
+                <i class="material-icons">repeat_one</i>
+            </a>*@
+            <input type="number" placeholder="Selecione a frase" style="font-style:#000000" min="0" max="5"  id="frase-id">
+        </div>
+
+        <ul class="center">
+            <li><span id="contador-caracteres">0</span> caracteres</li>
+            <li><span id="contador-palavras">0</span> palavras</li>
+        </ul>
+
+        <section class="placar">
+            <h3 class="center">Placar</h3>
+            <table class="centered bordered">
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>No. de palavras</th>
+                        <th>Remover</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td>Padrao</td>
+                        <td>999</td>
+                        <td>
+                            <a href="#" class="botao-remover">
+                                <i class="small material-icons">delete</i>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>
