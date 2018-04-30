@@ -8,6 +8,7 @@ using Alura.Models;
 
 namespace Alura.Models
 {
+    using Alura_typer.Models;
     using System.Data.Entity;
     using System.Security.Cryptography.X509Certificates;
 
@@ -18,6 +19,7 @@ namespace Alura.Models
         }
 
          public  DbSet<Frases> Frases { get; set; }
+         public  DbSet<Placar> Placar { get; set; }
 
      }
 

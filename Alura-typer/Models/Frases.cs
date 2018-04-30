@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Alura.Models
+namespace Alura_typer.Models
 {
     public class Frases
     {

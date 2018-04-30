@@ -30,7 +30,7 @@ function inicializaContadores() {
     campo.on("input", function () { //qdo inserir dados no campo input
 
         var conteudo = campo.val(); //pega conteudo do campo, referenciado´por campo-digitacao
-        var qtdPalavras = conteudo.split(/\s+/).length - 1; //quebra em espacos e obtem qtde de palavras(considera espaços como so um espaço
+        var qtdPalavras = conteudo.split(/\s+/).length ; //quebra em espacos e obtem qtde de palavras(considera espaços como so um espaço
         $("#contador-palavras").text(qtdPalavras);//coloca  qtdPalavras ta tag<li>  <span id = "#contador-palavras">
         var qtdCaracters = conteudo.length;
         $("#contador-caracteres").text(qtdCaracters);
@@ -141,6 +141,7 @@ function removeLinha() {
 
 
 function reiniciaJogo() {
+    console.log("pressionado botao reinicia jogo");
     campo.removeClass("campo-desativado");//remove/desativa  classe QUE atribui FUNDO CINZA
     campo.attr("disabled", false);//disabilita campo de digitaçao
     campo.val("");//limpa campo
@@ -159,6 +160,34 @@ function mostraPlacar() {
     $(".placar").stop().slideToggle(600);//mostra ou esconde(stop serve clicks simultaneos, animaçao rara no ultimo click) 
 
 }
+$("#botao-sync").click(sincronizaPlacar); //botao amarelo armazena placar no array
+
+function sincronizaPlacar() {
+    var placar = []; //array placar
+    var linhas = $("tbody > tr"); //armazena tr's,que sao filhas diretas de tbory
+    linhas.each(function () {//iteracao linha a linha
+        var usuario = $(this).find("td:nth-child(1)").text();//localiza primeiro td  dentro da tr      
+        var palavras = $(this).find("td:nth-child(2)").text();   //procura segundo td na tr
+        var score = {//objeto e igual a entidade placar, qdo chega no controller e como se fosse uma model placar
+            usuario: usuario,
+            pontos: palavras     
+        };
+        placar.push(score); //insere score em cada posicao do array , verifiar apostila caelum
+    });
+    console.log(placar);
+
+    $.ajax({
+        method: 'post',
+        url: "salvaPlacar", //view pertence a este contrloller entao passa-se so o método
+        data: { placar: placar },//nome do parametro da action,  var array placar 
+        success: function (response) {
+            console.log("Placar sincronizado com sucesso");
+            console.log('response:' + response);
+        }
+    });
+       
+}
+
 function scrollPlacar() {//desce o scroll de rolagem e mostra placar atual 
     var posicaoPlacar = $(".placar").offset().top;//posiçao do placa ate o topo
 
@@ -179,11 +208,9 @@ function fraseAleatoria() {//consertar : receber todas as frases e selecionar qu
     $.ajax({
             method: 'get',
             url: "metodGetFrase", //view pertence a este contrloller entao passa-se so o método
-            data: { id: Id },//bisca por id, a referencia Id
+            data: { id: Id },//busca por id, a referencia Id
             success: function(response) {
-
                 console.log('response:' + response);
-                //var tempo = response[1].Int32Array;
                 var frase = $(".frase");
                 frase.text(response[0]); //insere frase retornada pelo ajax na tag com id='frase'
 
@@ -202,9 +229,3 @@ function fraseAleatoria() {//consertar : receber todas as frases e selecionar qu
         });
 }
 
-function sincronizaPlacar() {
-    var placar = [];
-
-    var linhas = &("tbody > tr");//pega todas as trs que sao filhas diretas de tbody
-
-}
